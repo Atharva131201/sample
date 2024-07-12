@@ -23,7 +23,9 @@ jobs:
       run: sudo apt-get install sqlite3
 
     - name: Create SQLite database from SQL file
-      run: sqlite3 database.db < example.sql
+      run: |
+        sqlite3 database.db < example.sql
+        sqlite3 database.db "SELECT name FROM sqlite_master WHERE type='table';"
 
     - name: Download SchemaSpy
       run: wget https://github.com/schemaspy/schemaspy/releases/download/v6.2.4/schemaspy-6.2.4.jar
@@ -33,7 +35,9 @@ jobs:
 
     - name: Generate Documentation
       run: |
-        java -jar schemaspy-6.2.4.jar -t sqlite -dp sqlite-jdbc-3.43.0.0.jar -db database.db -u dummy -o schemaspy-output
+        ls -l
+        file database.db
+        java -jar schemaspy-6.2.4.jar -t sqlite -dp sqlite-jdbc-3.43.0.0.jar -db ./database.db -u dummy -o schemaspy-output -debug
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
