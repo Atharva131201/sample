@@ -35,9 +35,7 @@ jobs:
 
     - name: Generate Documentation
       run: |
-        ls -l
-        file database.db
-        java -jar schemaspy-6.2.4.jar -t sqlite -dp sqlite-jdbc-3.43.0.0.jar -db ./database.db -u dummy -o schemaspy-output -debug
+        java -jar schemaspy-6.2.4.jar -t sqlite -dp sqlite-jdbc-3.43.0.0.jar -db ./database.db -u dummy -o schemaspy-output -debug -sso -cat % -driver org.sqlite.JDBC
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
