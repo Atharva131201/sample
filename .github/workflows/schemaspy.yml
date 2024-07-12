@@ -23,18 +23,17 @@ jobs:
       run: sudo apt-get install sqlite3
 
     - name: Create SQLite database from SQL file
-      run: |
-        sqlite3 database.db < example.sql
-        
+      run: sqlite3 database.db < example.sql
+
     - name: Download SchemaSpy
-      run: wget https://github.com/schemaspy/schemaspy/releases/download/v6.1.0/schemaspy-6.1.0.jar
+      run: wget https://github.com/schemaspy/schemaspy/releases/download/v6.2.4/schemaspy-6.2.4.jar
 
     - name: Download SQLite JDBC Driver
-      run: wget https://github.com/xerial/sqlite-jdbc/releases/download/3.36.0.3/sqlite-jdbc-3.36.0.3.jar
+      run: wget https://github.com/xerial/sqlite-jdbc/releases/download/3.43.0.0/sqlite-jdbc-3.43.0.0.jar
 
     - name: Generate Documentation
       run: |
-        java -jar schemaspy-6.1.0.jar -t sqlite -dp sqlite-jdbc-3.36.0.3.jar -db database.db -o schemaspy-output
+        java -jar schemaspy-6.2.4.jar -t sqlite -dp sqlite-jdbc-3.43.0.0.jar -db database.db -u dummy -o schemaspy-output
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
